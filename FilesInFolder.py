@@ -45,15 +45,15 @@ class FilesInFolder:
 
 		try:
 			# If valid directories have not been provided:
-			if self.left_folder == None or self.right_folder == None or not os.path.exists(left_folder) or not os.path.exists(right_folder):
+			if self.left_folder == None or self.right_folder == None or not os.path.exists(self.left_folder) or not os.path.exists(self.right_folder):
 				raise IOError('[ERROR] Please provide valid right and left directories.')
 			else:				
-				print '[{action_counter}] Left Directory: {left_folder}'.format(action_counter=self.action_counter, left_folder=self.left_folder)
-				print '[{action_counter}] Right Directory: {right_folder}'.format(action_counter=self.action_counter, right_folder=self.right_folder)
-				print '\n'
+				print('[{action_counter}] Left Directory: {left_folder}'.format(action_counter=self.action_counter, left_folder=self.left_folder))
+				print('[{action_counter}] Right Directory: {right_folder}'.format(action_counter=self.action_counter, right_folder=self.right_folder))
+				print('\n')
 
 		except Exception as e:
-			print e		
+			print(e)		
 
 
 
@@ -67,14 +67,14 @@ class FilesInFolder:
 				raise IOError('[ERROR] Please provide a valid directory to search.')	
 			else:								
 				if self.verbose:
-					print '[{action_counter}] Finding files in {directory}.\n'.format(action_counter=self.action_counter, directory=directory)
+					print('[{action_counter}] Finding files in {directory}.\n'.format(action_counter=self.action_counter, directory=directory))
 
 				filenames = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory,f))]
 
 				self.action_counter += 1
 
 		except Exception as e:
-			print e
+			print(e)
 
 		return filenames
 
@@ -87,7 +87,7 @@ class FilesInFolder:
 		hash_value = 0x666
 		try:
 			if self.verbose:
-				print '[{action_counter}] Hashing file contents of {filepath}.\n'.format(action_counter=self.action_counter, filepath=filepath)
+				print('[{action_counter}] Hashing file contents of {filepath}.\n'.format(action_counter=self.action_counter, filepath=filepath))
 			
 			if filepath == None or not os.path.exists(filepath):
 				raise IOError('[ERROR] Please provide a valid filepath to hash.')
@@ -99,7 +99,7 @@ class FilesInFolder:
 					buf = inFile.read(BLOCKSIZE)
 			hash_value = h.hexdigest()
 		except Exception as e:
-			print e
+			print(e)
 
 		return hash_value
 
@@ -110,7 +110,7 @@ class FilesInFolder:
 		hash_value = 0x666
 		try:			
 			if self.verbose:
-				print '[{action_counter}] Hashing filename {filename}.\n'.format(action_counter=self.action_counter, filename=filename)
+				print('[{action_counter}] Hashing filename {filename}.\n'.format(action_counter=self.action_counter, filename=filename))
 			if filename == None:
 				raise IOError('[ERROR] Please provide a filename to hash.')
 			else:
@@ -118,7 +118,7 @@ class FilesInFolder:
 				h.update(filename)
 				hash_value = h.hexdigest()
 		except Exception as e:
-			print e
+			print(e)
 		return hash_value
 
 	def get_hashes(self, directory=None, hash_algorithm='md5', hash_type='contents'):
@@ -141,7 +141,7 @@ class FilesInFolder:
 					hashlist[str(hash_value)] = str(filepath)
 					self.action_counter += 1
 		except Exception as e:
-			print e
+			print(e)
 
 		return hashlist
 
@@ -165,14 +165,14 @@ class FilesInFolder:
 					elif write_mode.lower() == 'csv':
 						headers = ','.join(dictionary_contents['headers'])
 						outfile.write(headers + '\n')
-						for key,value in dictionary_contents.iteritems():
+						for key,value in dictionary_contents.items():
 							if key != 'headers':
 								output_line = key + ',' + value + '\n'
 								outfile.write(output_line)
 					else:
 						raise Exception('[ERROR] Need to provide a write mode from: {valid_write_modes}'.format(valid_write_modes=valid_write_modes))
 		except Exception as e:
-			print e
+			print(e)
 
 	def write_list_contents(self, list_contents=[], missing_files_filepath=None):
 		'''
@@ -186,7 +186,7 @@ class FilesInFolder:
 					for value in list_contents:
 						outfile.write(value + '\n')
 		except Exception as e:
-			print e
+			print(e)
 
 
 	def compare_hash_lists(self, left_hash_dict=None, right_hash_dict=None):
@@ -196,7 +196,7 @@ class FilesInFolder:
 		all hashes that are missing.
 		'''
 		missing_hash_value_filepaths = []
-		for hash_value, filepath in left_hash_dict.iteritems():
+		for hash_value, filepath in left_hash_dict.items():
 			if not hash_value in right_hash_dict.keys():
 				missing_hash_value_filepaths.append(filepath)
 		return missing_hash_value_filepaths
@@ -213,22 +213,22 @@ class FilesInFolder:
 		if self.write_mode != None:
 			# Missing files:
 			if len(missing_hash_value_filepaths) == 0:
-				print 'All files from left folder exist in right folder.'
-				print 'Left Folder:', self.left_folder
-				print 'Right Folder:', self.right_folder
-				print '\n'
+				print('All files from left folder exist in right folder.')
+				print('Left Folder:' ,self.left_folder)
+				print('Right Folder:', self.right_folder)
+				print('\n')
 			else:	
 				missing_files_filepath = os.path.join(left_folder, missing_files_filename)
 				self.write_list_contents(list_contents=missing_hash_value_filepaths, missing_files_filepath=missing_files_filepath)
 				if self.verbose:
-					print '[{action_counter}] Writing missing files to {missing_files_filepath}.\n'.format(action_counter=self.action_counter, missing_files_filepath=missing_files_filepath)
+					print('[{action_counter}] Writing missing files to {missing_files_filepath}.\n'.format(action_counter=self.action_counter, missing_files_filepath=missing_files_filepath))
 				self.action_counter += 1
 
 			# Left side:			
 			left_outfilepath = os.path.join(self.left_folder, self.contents_filename)
 			self.write_dictionary_contents(dictionary_contents=left_hash_dict, write_mode=self.write_mode, contents_filepath=left_outfilepath)
 			if self.verbose:
-				print '[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=left_outfilepath)
+				print('[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=left_outfilepath))
 
 			self.action_counter += 1
 
@@ -236,22 +236,22 @@ class FilesInFolder:
 			right_outfilepath = os.path.join(self.right_folder, self.contents_filename)	
 			self.write_dictionary_contents(dictionary_contents=right_hash_dict, write_mode=self.write_mode, contents_filepath=right_outfilepath)
 			if self.verbose:
-				print '[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=right_outfilepath)
+				print('[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=right_outfilepath))
 
 			self.action_counter += 1			
 		else:
-			print 'Files missing from left folder that exist in right folder:'
-			print missing_hash_value_filepaths
+			print('Files missing from left folder that exist in right folder:')
+			print(missing_hash_value_filepaths)
 
 
 if __name__ == '__main__':
 	# Until I use arg parse:
-	left_folder = '' # Add your left folder path here
-	right_folder = '' # Add your right folder path here
+	left_folder = 'C:\\Users\\Neophile\\Desktop\\Camera' # Add your left folder path here
+	right_folder = 'I:\\backup\\Multimedia\\Pictures\\Personal\\Mobile\\201609_201703\\Camera' # Add your right folder path here
 	
 
 	hash_algorithm = 'md5'
-	hash_type = 'contents'
+	hash_type = 'contents' # Other option is "filenames"
 	write_mode = 'csv'
 	contents_filename = 'contents.csv'
 	missing_files_filename = 'missing.txt'
