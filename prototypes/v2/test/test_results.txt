@@ -1,0 +1,56 @@
+test_hashes.py
+
+Beginning hashing files...
+Hashing files on left folder...
+Hashing left files took 24.9633649798 seconds.
+
+Hashing files on right folder...
+Hashing right files took 157.747725947 seconds.
+
+Hashing took a total of 182.711150702 seconds.
+
+Starting to check hashes...
+Checking hashes took 0.22101464911 seconds.
+RESULTS: All files present in right folder!
+[Finished in 183.0s]
+
+
+----------------------------------------------------------------------------
+
+FileInFolder.py
+
+[Left Folder Path] C:\Users\Neophile\Desktop\mobile
+[Right Folder Path] I:\Dropbox\Camera Uploads
+Beginning hashing files...
+Hashing files on left folder...
+
+[0] Updating the Current Working Directory.
+[Previous working directory] I:\Dropbox\Projects\Python\FilesInFolder
+[Current working directory] C:\Users\Neophile\Desktop\mobile
+
+[1] Finding files in C:\Users\Neophile\Desktop\mobile.
+
+[2] Hashing files.
+Hashing left files took 25.1185665217 seconds.
+
+Hashing files on right folder...
+
+[3] Updating the Current Working Directory.
+[Previous working directory] C:\Users\Neophile\Desktop\mobile
+[Current working directory] I:\Dropbox\Camera Uploads
+
+[4] Finding files in I:\Dropbox\Camera Uploads.
+
+[5] Hashing files.
+Hashing right files took 158.216412893 seconds.
+
+Hashing took a total of 183.335046478 seconds.
+
+[Left Folder Size] 2143
+[Right Folder Size] 5012
+Starting to check hashes...
+
+[6] Checking hashed files and writing results to files.
+Checking hashes took 2.29541457213 seconds.
+[Result] All files from the left folder are in the right folder.
+[Finished in 185.7s]
