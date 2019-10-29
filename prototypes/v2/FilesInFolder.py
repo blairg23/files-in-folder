@@ -165,8 +165,8 @@ class FilesInFolder:
 			print '[Result] Not all files from the left folder are in the right folder.'
 
 if __name__ == '__main__':
-	left_folder = 'F:\Mobile\camera'
-	right_folder = 'H:\Dropbox\Camera Uploads'
+	left_folder = ''
+	right_folder = ''
 
 	inFolder = FilesInFolder(left_folder=left_folder, right_folder=right_folder, verbose=True)
 	

@@ -242,8 +242,12 @@ class FilesInFolder:
 
 if __name__ == '__main__':
     # Until I use arg parse:
-    left_folder = ''
-    right_folder = ''
+    left_folder = 'C:\\Users\\Neophile\\Desktop\\mobile\\Camera' # Add your left folder path here
+    right_folder = 'E:\\Dropbox\\Camera Uploads' # Add your right folder path here
+
+    # left_folder = 'I:\\backup\\Multimedia\\Pictures\\Personal\\Mobile\\tosort\\mobile_2016_10_24\\Camera'
+    # right_folder = 'I:\\backup\\Multimedia\\Pictures\\Personal\\Mobile\\201609_201703\\Camera'
+    
 
     hash_algorithm = 'md5'
     hash_type = 'contents' # Other option is "filenames"

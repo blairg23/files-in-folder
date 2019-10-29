@@ -19,16 +19,16 @@ RESULTS: All files present in right folder!
 
 FileInFolder.py
 
-[Left Folder Path] C:\Users\Neophile\Desktop\mobile
+[Left Folder Path] C:\Users\<username>\Desktop\mobile
 [Right Folder Path] I:\Dropbox\Camera Uploads
 Beginning hashing files...
 Hashing files on left folder...
 
 [0] Updating the Current Working Directory.
 [Previous working directory] I:\Dropbox\Projects\Python\FilesInFolder
-[Current working directory] C:\Users\Neophile\Desktop\mobile
+[Current working directory] C:\Users\<username>\Desktop\mobile
 
-[1] Finding files in C:\Users\Neophile\Desktop\mobile.
+[1] Finding files in C:\Users\<username>\Desktop\mobile.
 
 [2] Hashing files.
 Hashing left files took 25.1185665217 seconds.
@@ -36,7 +36,7 @@ Hashing left files took 25.1185665217 seconds.
 Hashing files on right folder...
 
 [3] Updating the Current Working Directory.
-[Previous working directory] C:\Users\Neophile\Desktop\mobile
+[Previous working directory] C:\Users\<username>\Desktop\mobile
 [Current working directory] I:\Dropbox\Camera Uploads
 
 [4] Finding files in I:\Dropbox\Camera Uploads.
