@@ -100,8 +100,8 @@ def check_folder(filename_list=None, folder_name=None):
 		print '[ERROR] LIST OF FILENAMES REQUIRED!'
 
 if __name__ == '__main__':
-	left_folder = 'C:\Users\Neophile\Desktop\mobile'
-	right_folder = 'I:\Dropbox\Camera Uploads'
+	left_folder = ''
+	right_folder = ''
 
 	# First, create a list of the filenames from the left folder:
 	filename_list = []

@@ -37,8 +37,8 @@ def check_hashes(left_hash_dict=None, right_hash_dict=None):
 		return missing_files
 
 if __name__ == '__main__':
-	left_folder = 'C:\Users\Neophile\Desktop\mobile'
-	right_folder = 'I:\Dropbox\Camera Uploads'
+	left_folder = ''
+	right_folder = ''
 	
 	print "Beginning hashing files..."
 	start_time = clock()

@@ -41,8 +41,8 @@ def move_files(left_folder=None, right_folder=None, file_list=None):
 
 
 if __name__ == '__main__':
-	left_folder = 'F:\Mobile\camera'
-	right_folder = 'H:\Dropbox\Camera Uploads'
-	csv_filepath = 'H:\Dropbox\Projects\Python\FilesInFolder\NotInright_folder2.csv'
+	left_folder = ''
+	right_folder = ''
+	csv_filepath = ''
 	file_list = get_file_list(csv_filepath=csv_filepath)
 	move_files(left_folder=left_folder, right_folder=right_folder, file_list=file_list)
