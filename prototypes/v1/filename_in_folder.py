@@ -80,7 +80,12 @@ def sanitize_filenames(filename_list=None, debug=False):
 				print filename+extension, updated_filename
 			filename_list[filename_index] = updated_filename
 
-			
+
+## Just in case it failed to check the first time.			
+def double_check_folder(filename_list=None, folder_name=None):
+	check_folder(filename_list, folder_name)
+	check_folder(filename_list, folder_name)
+	
 def check_folder(filename_list=None, folder_name=None):
 	'''
 	Checks the right folder for the existence of every filename in the list.
