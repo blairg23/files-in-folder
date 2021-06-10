@@ -1,7 +1,7 @@
 # Custom ignore files:
 *.csv
 *.json
-
+data/
 
 # Created by https://www.gitignore.io/api/linux,macos,python,pycharm,windows,sublimetext
 # Edit at https://www.gitignore.io/?templates=linux,macos,python,pycharm,windows,sublimetext
