@@ -221,6 +221,29 @@ class FilesInFolder:
         except Exception as e:
             print(e)
 
+
+    def cleanup(self):
+        '''
+        Cleans up metadata files like contents.csv and missing.txt
+        '''
+        self.action_counter += 1
+        for filename in PROTECTED_FILENAMES:
+            left_file_to_delete = os.path.join(self.left_folder, filename)
+            right_file_to_delete = os.path.join(self.right_folder, filename)
+
+            if os.path.exists(left_file_to_delete):
+                if self.verbose:
+                    print(f'[{self.action_counter}] Deleting {left_file_to_delete}.\n')
+                os.remove(left_file_to_delete)
+                self.action_counter += 1
+
+            if os.path.exists(right_file_to_delete):
+                if self.verbose:
+                    print(f'[{self.action_counter}] Deleting {right_file_to_delete}.\n')
+                os.remove(right_file_to_delete)
+                self.action_counter += 1
+                
+
     def run(self):
         '''
         Runs all the required functions to check whether two folders have identical content.
@@ -237,35 +260,47 @@ class FilesInFolder:
                 print('Left Folder:' ,self.left_folder)
                 print('Right Folder:', self.right_folder)
                 print('\n')
+
+                # Left side:            
+                left_outfilepath = os.path.join(self.left_folder, self.contents_filename)
+                self.write_dictionary_contents(dictionary_contents=left_hash_dict, write_mode=self.write_mode, contents_filepath=left_outfilepath)
+                if self.verbose:
+                    print('[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=left_outfilepath))
+
+                self.action_counter += 1
+
+                # Right side:
+                right_outfilepath = os.path.join(self.right_folder, self.contents_filename) 
+                self.write_dictionary_contents(dictionary_contents=right_hash_dict, write_mode=self.write_mode, contents_filepath=right_outfilepath)
+                if self.verbose:
+                    print('[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=right_outfilepath))
+
+                self.action_counter += 1 
             else:   
                 missing_files_filepath = os.path.join(self.left_folder, missing_files_filename)
-                self.write_list_contents(list_contents=missing_hash_value_filepaths, missing_files_filepath=missing_files_filepath)
                 if self.verbose:
-                    print('[{action_counter}] Writing missing files to {missing_files_filepath}.\n'.format(action_counter=self.action_counter, missing_files_filepath=missing_files_filepath))
+                    print('[{action_counter}] Writing missing file info to {missing_files_filepath}.\n'.format(action_counter=self.action_counter, missing_files_filepath=missing_files_filepath))
+                self.write_list_contents(list_contents=missing_hash_value_filepaths, missing_files_filepath=missing_files_filepath)
                 self.action_counter += 1
 
                 if self.fix_missing_files:
-                    self.write_missing_files(missing_filepaths=missing_hash_value_filepaths, destination_directory=self.right_folder)
                     if self.verbose:
                         print(f'[{self.action_counter}] Writing missing files to {self.right_folder}.\n')
+                    self.write_missing_files(missing_filepaths=missing_hash_value_filepaths, destination_directory=self.right_folder)
                     self.action_counter += 1
 
 
-            # Left side:            
-            left_outfilepath = os.path.join(self.left_folder, self.contents_filename)
-            self.write_dictionary_contents(dictionary_contents=left_hash_dict, write_mode=self.write_mode, contents_filepath=left_outfilepath)
-            if self.verbose:
-                print('[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=left_outfilepath))
+                    if self.verbose:
+                        print(f'[{self.action_counter}] Cleaning up metadata files.\n')
+                    self.cleanup()
+                    
+                    if self.verbose:
+                        print(f'[{self.action_counter}] Rerunning file checker.\n')
+                    self.action_counter += 1
+                    self.run()
 
-            self.action_counter += 1
 
-            # Right side:
-            right_outfilepath = os.path.join(self.right_folder, self.contents_filename) 
-            self.write_dictionary_contents(dictionary_contents=right_hash_dict, write_mode=self.write_mode, contents_filepath=right_outfilepath)
-            if self.verbose:
-                print('[{action_counter}] Writing contents to {contents_filepath}.\n'.format(action_counter=self.action_counter, contents_filepath=right_outfilepath))
-
-            self.action_counter += 1            
+                       
         else:
             print('Files missing from left folder that exist in right folder:')
             print(missing_hash_value_filepaths)
